@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/activity_landing"
+    android:id="@+id/activity_login"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,34 +9,52 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.uark.uarkregisterapp.LandingActivity">
+    tools:context="edu.uark.uarkregisterapp.LoginActivity">
 
     <TextView
-        android:id="@+id/text_view_welcome"
+        android:id="@+id/text_view_welcome_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="30sp"
-        android:text="@string/text_view_landing_welcome"/>
+        android:textSize="24sp"
+        android:text="Enter Login Information Below"/>
+
+    <EditText
+        android:layout_width= "wrap_content"
+        android:layout_height= "wrap_content"
+        android:id= "@+id/userid"
+        android:hint= "User ID"
+        android:focusable= "true"
+        android:layout_marginTop= "60dp"
+        android:layout_alignParentLeft= "true"
+        android:layout_alignParentStart= "true"
+        android:layout_alignParentRight= "true"
+        android:layout_alignParentEnd= "true"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width= "wrap_content"
+        android:layout_height= "wrap_content"
+        android:id= "@+id/password"
+        android:hint= "Password"
+        android:inputType="textPassword"
+        android:focusable = "true"
+        android:layout_below="@+id/userid"
+        android:layout_marginTop= "15dp"
+        android:layout_alignParentLeft= "true"
+        android:layout_alignParentStart= "true"
+        android:layout_alignParentRight= "true"
+        android:layout_alignParentEnd= "true"
+        android:gravity="center"/>
 
     <Button
-        android:id="@+id/button_list_products"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_view_welcome"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/button_all_products"
-        android:onClick="displayAllProductsButtonOnClick"/>
-
-    <Button
-        android:id="@+id/button_create_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_list_products"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/button_create_product"
-        android:onClick="createProductButtonOnClick"/>
+    android:id="@+id/log_in"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/password"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="30dp"
+    android:text="Log In"
+    android:onClick="Log_In_Submit"/>
 
 </RelativeLayout>

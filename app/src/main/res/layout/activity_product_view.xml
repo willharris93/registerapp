@@ -22,6 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_product_view"/>
+    <include layout="@layout/content_product_view"
+        android:layout_height="wrap_content" />
 
 </android.support.design.widget.CoordinatorLayout>

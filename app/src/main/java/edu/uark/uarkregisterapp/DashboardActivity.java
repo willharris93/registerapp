@@ -5,24 +5,52 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-public class NewUserActivity extends AppCompatActivity {
-    Button create_user;
-    EditText firstname,lastname,password;
-
+public class DashboardActivity extends AppCompatActivity {
+    Button start_transaction,sr_product,sr_cashier,create_employee,logout;
+    TextView welcome;
+    String user;
+;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_user);
+        setContentView(R.layout.activity_dashboard);
 
-        create_user = (Button)findViewById(R.id.create);
-        firstname = (EditText)findViewById(R.id.firstname);
-        lastname = (EditText)findViewById(R.id.lastname);
-        password = (EditText)findViewById(R.id.password);
+        start_transaction = (Button)findViewById(R.id.start_transaction);
+        sr_product = (Button)findViewById(R.id.sr_product);
+        sr_cashier = (Button)findViewById(R.id.sr_cashier);
+        create_employee = (Button)findViewById(R.id.create_employee);
+        logout = (Button)findViewById(R.id.logout);
+        welcome = (TextView)findViewById(R.id.text_view_welcome);
+        user = "{USER}";
+        //Set user to appropriate name when logged in
 
-        create_user.setOnClickListener(new View.OnClickListener() {
+        welcome.setText("Welcome " + user + "!");
+
+        start_transaction.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // Interface with the server, add user, etc.
+                // do stuff
+            }
+        });
+        sr_product.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // do stuff
+            }
+        });
+        sr_cashier.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // do stuff
+            }
+        });
+        create_employee.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // do stuff
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // do stuff
             }
         });
     }

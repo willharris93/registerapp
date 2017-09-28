@@ -16,7 +16,8 @@ public class LandingActivity extends AppCompatActivity {
 	}
 
 	public void displayAllProductsButtonOnClick(View view) {
-		this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
+		Intent intent = new Intent(getApplicationContext(), ProductsListingActivity.class);
+		this.startActivity(intent);
 	}
 
 	public void createProductButtonOnClick(View view) {

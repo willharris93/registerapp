@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ProductsListingActivity extends AppCompatActivity {
 
 		ActionBar actionBar = this.getSupportActionBar();
 		if (actionBar != null) {
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
 		this.products = new ArrayList<>();

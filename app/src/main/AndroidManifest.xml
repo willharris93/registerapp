@@ -9,28 +9,40 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".LandingActivity">
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProductsListingActivity"
-            android:label="@string/title_activity_products_listing"
-            android:parentActivityName=".LandingActivity"
+            android:name=".LandingActivity"
+            android:label="ProductListing"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.uark.uarkregisterapp.LandingActivity"/>
         </activity>
         <activity
             android:name=".ProductViewActivity"
-            android:label="@string/title_activity_product_view"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="ProductView">
         </activity>
+        <activity
+            android:name=".ProductsListingActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Landing">
+        </activity>
+        <activity
+            android:name=".NewUserActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="NewUser">
+        </activity>
+        <activity
+            android:name=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Dashboard">
+        </activity>
+
     </application>
 
 </manifest>

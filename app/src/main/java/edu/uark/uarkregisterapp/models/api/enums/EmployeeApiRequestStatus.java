@@ -5,7 +5,7 @@ import android.util.SparseArray;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ProductApiRequestStatus {
+public enum EmployeeApiRequestStatus {
 	OK(0),
 	INVALID_INPUT(1),
 	UNKNOWN_ERROR(2),
@@ -16,36 +16,36 @@ public enum ProductApiRequestStatus {
 		return value;
 	}
 
-	public static ProductApiRequestStatus mapValue(int key) {
+	public static EmployeeApiRequestStatus mapValue(int key) {
 		if (valueMap == null) {
 			valueMap = new SparseArray<>();
 
-			for (ProductApiRequestStatus status : ProductApiRequestStatus.values()) {
+			for (EmployeeApiRequestStatus status : EmployeeApiRequestStatus.values()) {
 				valueMap.put(status.getValue(), status);
 			}
 		}
 
-		return ((valueMap.indexOfKey(key) >= 0) ? valueMap.get(key) : ProductApiRequestStatus.UNKNOWN_ERROR);
+		return ((valueMap.indexOfKey(key) >= 0) ? valueMap.get(key) : EmployeeApiRequestStatus.UNKNOWN_ERROR);
 	}
 
-	public static ProductApiRequestStatus mapName(String name) {
+	public static EmployeeApiRequestStatus mapName(String name) {
 		if (nameMap == null) {
 			nameMap = new HashMap<>();
 
-			for (ProductApiRequestStatus status : ProductApiRequestStatus.values()) {
+			for (EmployeeApiRequestStatus status : EmployeeApiRequestStatus.values()) {
 				nameMap.put(status.name(), status);
 			}
 		}
 
-		return (nameMap.containsKey(name) ? nameMap.get(name) : ProductApiRequestStatus.UNKNOWN_ERROR);
+		return (nameMap.containsKey(name) ? nameMap.get(name) : EmployeeApiRequestStatus.UNKNOWN_ERROR);
 	}
 
 	private int value;
 
-	private static Map<String, ProductApiRequestStatus> nameMap = null;
-	private static SparseArray<ProductApiRequestStatus> valueMap = null;
+	private static Map<String, EmployeeApiRequestStatus> nameMap = null;
+	private static SparseArray<EmployeeApiRequestStatus> valueMap = null;
 
-	private ProductApiRequestStatus(int value) {
+	private EmployeeApiRequestStatus(int value) {
 		this.value = value;
 	}
 }

@@ -10,27 +10,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-
 import org.apache.commons.lang3.StringUtils;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import java.util.Date;
-
 import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiRequestStatus;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
-public class EmployeeViewActivity extends AppCompatActivity {
+public class NewUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
 
     }
-
-
 
     public void saveButtonOnClick(View view) {
         if (!this.validateInput()) {
@@ -41,26 +33,35 @@ public class EmployeeViewActivity extends AppCompatActivity {
                 setMessage(R.string.alert_dialog_employee_save).
                 create();
 
+        (new NewUserActivity.SaveActivityTask_E(
+                this,
+                this.getEmployeePasswordEditText().getText().toString(),
+                this.getEmployeeFirstNameEditText().getText().toString(),
+                this.getEmployeeLastNameEditText().getText().toString()
+        )).execute();
     }
 
     private EditText getEmployeePasswordEditText() {
         return (EditText) this.findViewById(R.id.password);
     }
 
-
-
-    private String getEmployeeCreatedOnEditText() {
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        return timeStamp;
+    private EditText getEmployeeFirstNameEditText() {
+        return (EditText) this.findViewById(R.id.firstname);
     }
 
-    private class SaveActivityTask extends AsyncTask<Void, Void, Boolean> {
+    private EditText getEmployeeLastNameEditText() {
+        return (EditText) this.findViewById(R.id.lastname);
+    }
+
+    private class SaveActivityTask_E extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
             Employee employee = (new EmployeeService()).putEmployee(
                     (new Employee()).
                             setId(employeeTransition.getId()).
                             setPassword(this.password).
+                            setFirstName(this.firstName).
+                            setLastName(this.lastName)
             );
 
             if (employee.getApiRequestStatus() == EmployeeApiRequestStatus.OK) {
@@ -96,14 +97,16 @@ public class EmployeeViewActivity extends AppCompatActivity {
                     show();
         }
 
-        private int count;
         private String password;
-        private EmployeeViewActivity activity;
+        private String firstName;
+        private String lastName;
+        private NewUserActivity activity;
 
-        private SaveActivityTask(EmployeeViewActivity activity, String password, int count) {
-            this.count = count;
+        private SaveActivityTask_E(NewUserActivity activity, String password, String firstName, String lastName) {
             this.activity = activity;
             this.password = password;
+            this.firstName = firstName;
+            this.lastName = lastName;
         }
     }
 

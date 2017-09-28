@@ -10,33 +10,42 @@ import java.util.UUID;
 
 import edu.uark.uarkregisterapp.commands.converters.ByteToUUIDConverterCommand;
 import edu.uark.uarkregisterapp.commands.converters.UUIDToByteConverterCommand;
-import edu.uark.uarkregisterapp.models.api.Product;
+import edu.uark.uarkregisterapp.models.api.Employee;
 
-public class ProductTransition implements Parcelable {
+public class EmployeeTransition implements Parcelable {
 	private UUID id;
 	public UUID getId() {
 		return this.id;
 	}
-	public ProductTransition setId(UUID id) {
+	public EmployeeTransition setId(UUID id) {
 		this.id = id;
 		return this;
 	}
 
-	private String lookupCode;
-	public String getLookupCode() {
-		return this.lookupCode;
+	private String password;
+	public String getPassword() {
+		return this.password;
 	}
-	public ProductTransition setLookupCode(String lookupCode) {
-		this.lookupCode = lookupCode;
+	public EmployeeTransition setPassword(String password) {
+		this.password = password;
 		return this;
 	}
 
-	private int count;
-	public int getCount() {
-		return this.count;
+	private String firstName;
+	public String getFirstName() {
+		return this.firstName;
 	}
-	public ProductTransition setCount(int count) {
-		this.count = count;
+	public EmployeeTransition setFirstName(String firstName) {
+		this.firstName = firstName;
+		return this;
+	}
+
+	private String lastName;
+	public String getLastName() {
+		return this.lastName;
+	}
+	public EmployeeTransition setLastName(String lastName) {
+		this.lastName = lastName;
 		return this;
 	}
 
@@ -44,7 +53,7 @@ public class ProductTransition implements Parcelable {
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}
-	public ProductTransition setCreatedOn(Date createdOn) {
+	public EmployeeTransition setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 		return this;
 	}
@@ -52,8 +61,7 @@ public class ProductTransition implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel destination, int flags) {
 		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
-		destination.writeString(this.lookupCode);
-		destination.writeInt(this.count);
+		destination.writeString(this.password);
 		destination.writeLong(this.createdOn.getTime());
 	}
 
@@ -62,36 +70,39 @@ public class ProductTransition implements Parcelable {
 		return 0;
 	}
 
-	public static final Parcelable.Creator<ProductTransition> CREATOR = new Parcelable.Creator<ProductTransition>() {
-		public ProductTransition createFromParcel(Parcel productTransitionParcel) {
-			return new ProductTransition(productTransitionParcel);
+	public static final Creator<EmployeeTransition> CREATOR = new Creator<EmployeeTransition>() {
+		public EmployeeTransition createFromParcel(Parcel employeeTransitionParcel) {
+			return new EmployeeTransition(employeeTransitionParcel);
 		}
 
-		public ProductTransition[] newArray(int size) {
-			return new ProductTransition[size];
+		public EmployeeTransition[] newArray(int size) {
+			return new EmployeeTransition[size];
 		}
 	};
 
-	public ProductTransition() {
-		this.count = -1;
+	public EmployeeTransition() {
 		this.id = new UUID(0, 0);
+		this.password = StringUtils.EMPTY;
+		this.firstName = StringUtils.EMPTY;
+		this.lastName = StringUtils.EMPTY;
 		this.createdOn = new Date();
-		this.lookupCode = StringUtils.EMPTY;
 	}
 
-	public ProductTransition(Product product) {
-		this.id = product.getId();
-		this.count = product.getCount();
-		this.createdOn = product.getCreatedOn();
-		this.lookupCode = product.getLookupCode();
+	public EmployeeTransition(Employee employee) {
+		this.id = employee.getId();
+		this.password = employee.getPassword();
+		this.firstName = employee.getFirstName();
+		this.lastName = employee.getLastName();
+		this.createdOn = employee.getCreatedOn();
 	}
 
-	public ProductTransition(Parcel productTransitionParcel) {
-		this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(productTransitionParcel.createByteArray()).execute();
-		this.lookupCode = productTransitionParcel.readString();
-		this.count = productTransitionParcel.readInt();
+	public EmployeeTransition(Parcel employeeTransitionParcel) {
+		this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(employeeTransitionParcel.createByteArray()).execute();
+		this.password = employeeTransitionParcel.readString();
+		this.firstName = employeeTransitionParcel.readString();
+		this.lastName = employeeTransitionParcel.readString();
 
 		this.createdOn = new Date();
-		this.createdOn.setTime(productTransitionParcel.readLong());
+		this.createdOn.setTime(employeeTransitionParcel.readLong());
 	}
 }

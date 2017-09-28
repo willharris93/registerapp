@@ -6,46 +6,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import edu.uark.uarkregisterapp.models.api.Employee;
+import edu.uark.uarkregisterapp.models.api.EmployeeListing;
 import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.ProductListing;
 import edu.uark.uarkregisterapp.models.api.enums.ApiLevel;
+import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiMethod;
+import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiRequestStatus;
 import edu.uark.uarkregisterapp.models.api.enums.ProductApiMethod;
-import edu.uark.uarkregisterapp.models.api.enums.ProductApiRequestStatus;
 import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
-public class ProductService extends BaseRemoteService {
-	public Product getProduct(UUID productId) {
+public class EmployeeService extends BaseRemoteService {
+	public Employee getEmployee(UUID employeeId) {
 		JSONObject rawJsonObject = this.requestSingle(
-			(new PathElementInterface[] { ProductApiMethod.PRODUCT, ApiLevel.ONE }), productId
+			(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE }), employeeId
 		);
 
 		if (rawJsonObject != null) {
-			return (new Product()).loadFromJson(rawJsonObject);
+			return (new Employee()).loadFromJson(rawJsonObject);
 		} else {
-			return new Product().setApiRequestStatus(ProductApiRequestStatus.UNKNOWN_ERROR);
+			return new Employee().setApiRequestStatus(EmployeeApiRequestStatus.UNKNOWN_ERROR);
 		}
 	}
 
-	public Product getProductByLookupCode(String productLookupCode) {
+	public List<Employee> getEmployees() {
+		List<Employee> activities;
 		JSONObject rawJsonObject = this.requestSingle(
-			(new PathElementInterface[] { ProductApiMethod.PRODUCT, ApiLevel.ONE, ProductApiMethod.BY_LOOKUP_CODE }), productLookupCode
+				(new PathElementInterface[] { ProductApiMethod.PRODUCT, ApiLevel.ONE, ProductApiMethod.PRODUCTS })
 		);
 
 		if (rawJsonObject != null) {
-			return (new Product()).loadFromJson(rawJsonObject);
-		} else {
-			return new Product().setApiRequestStatus(ProductApiRequestStatus.UNKNOWN_ERROR);
-		}
-	}
-
-	public List<Product> getProducts() {
-		List<Product> activities;
-		JSONObject rawJsonObject = this.requestSingle(
-			(new PathElementInterface[] { ProductApiMethod.PRODUCT, ApiLevel.ONE, ProductApiMethod.PRODUCTS })
-		);
-
-		if (rawJsonObject != null) {
-			activities = (new ProductListing()).loadFromJson(rawJsonObject).getProducts();
+			activities = (new EmployeeListing()).loadFromJson(rawJsonObject).getEmployees();
 		} else {
 			activities = new ArrayList<>(0);
 		}
@@ -53,15 +44,15 @@ public class ProductService extends BaseRemoteService {
 		return activities;
 	}
 
-	public Product putProduct(Product product) {
+	public Employee putEmployee(Employee employee) {
 		JSONObject rawJsonObject = this.putSingle(
-			(new PathElementInterface[]{ ProductApiMethod.PRODUCT, ApiLevel.ONE }), product.convertToJson()
+			(new PathElementInterface[]{ EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE }), employee.convertToJson()
 		);
 
 		if (rawJsonObject != null) {
-			return (new Product()).loadFromJson(rawJsonObject);
+			return (new Employee()).loadFromJson(rawJsonObject);
 		} else {
-			return new Product().setApiRequestStatus(ProductApiRequestStatus.UNKNOWN_ERROR);
+			return new Employee().setApiRequestStatus(EmployeeApiRequestStatus.UNKNOWN_ERROR);
 		}
 	}
 
