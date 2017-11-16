@@ -2,18 +2,14 @@ package edu.uark.uarkregisterapp.models.api.services;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
+import edu.uark.uarkregisterapp.models.api.ActiveEmployeeCounts;
 import edu.uark.uarkregisterapp.models.api.Employee;
-import edu.uark.uarkregisterapp.models.api.EmployeeListing;
-import edu.uark.uarkregisterapp.models.api.Product;
-import edu.uark.uarkregisterapp.models.api.ProductListing;
+import edu.uark.uarkregisterapp.models.api.EmployeeLogin;
 import edu.uark.uarkregisterapp.models.api.enums.ApiLevel;
 import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiMethod;
 import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiRequestStatus;
-import edu.uark.uarkregisterapp.models.api.enums.ProductApiMethod;
 import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
 public class EmployeeService extends BaseRemoteService {
@@ -29,19 +25,29 @@ public class EmployeeService extends BaseRemoteService {
 		}
 	}
 
-	public List<Employee> getEmployees() {
-		List<Employee> activities;
+	public ActiveEmployeeCounts activeEmployeeCounts() {
 		JSONObject rawJsonObject = this.requestSingle(
-				(new PathElementInterface[] { ProductApiMethod.PRODUCT, ApiLevel.ONE, ProductApiMethod.PRODUCTS })
+			(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE, EmployeeApiMethod.ACTIVE_COUNTS })
 		);
 
 		if (rawJsonObject != null) {
-			activities = (new EmployeeListing()).loadFromJson(rawJsonObject).getEmployees();
+			return (new ActiveEmployeeCounts()).loadFromJson(rawJsonObject);
 		} else {
-			activities = new ArrayList<>(0);
+			return new ActiveEmployeeCounts();
 		}
+	}
 
-		return activities;
+	public Employee logIn(EmployeeLogin employeeLogin) {
+		JSONObject rawJsonObject = this.putSingle(
+			(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE, EmployeeApiMethod.LOGIN }),
+			employeeLogin.convertToJson()
+		);
+
+		if (rawJsonObject != null) {
+			return (new Employee()).loadFromJson(rawJsonObject);
+		} else {
+			return new Employee().setApiRequestStatus(EmployeeApiRequestStatus.UNKNOWN_ERROR);
+		}
 	}
 
 	public Employee putEmployee(Employee employee) {
@@ -55,5 +61,4 @@ public class EmployeeService extends BaseRemoteService {
 			return new Employee().setApiRequestStatus(EmployeeApiRequestStatus.UNKNOWN_ERROR);
 		}
 	}
-
 }

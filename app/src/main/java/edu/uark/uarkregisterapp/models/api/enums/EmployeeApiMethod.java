@@ -8,8 +8,8 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 public enum EmployeeApiMethod implements PathElementInterface {
 	NONE(""),
 	EMPLOYEE("employee"),
-	BY_LOOKUP_CODE("byLookupCode"),
-	EMPLOYEES("employees");
+	ACTIVE_COUNTS("activecounts"),
+	LOGIN("login");
 
 	@Override
 	public String getPathValue() {

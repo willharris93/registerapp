@@ -14,8 +14,6 @@
     tools:context="edu.uark.uarkregisterapp.ProductViewActivity"
     tools:showIn="@layout/activity_product_view">
 
-
-
     <TextView
         android:id="@+id/text_view_product_lookup_code"
         android:text="@string/text_view_label_products_lookup_code"
